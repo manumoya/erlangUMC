@@ -3,8 +3,7 @@
 -export([hour/0]). 
 
 date() -> 
-	{D,_}= erlang:localtime(),
-	{An,Me,Di} = D,
+	{{An,Me,Di},_}= erlang:localtime(),
 	{Di,Me,An}.
 
 hour() -> 
