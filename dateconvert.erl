@@ -17,6 +17,7 @@ new_date(resta, Date, DaysToAdd) ->
 new_date(_, Date, _) ->Date.
 
 new_date_dmy({D, M, Y}) ->
-	fun(Oper, Date) ->
-		new_date(Oper, Date, round(D + (M * ?DAY_X_MONTH) + (Y * ?DAY_X_YEAR)))
+	fun
+		(Oper, Date) ->
+			new_date(Oper, Date, round(D + (M * ?DAY_X_MONTH) + (Y * ?DAY_X_YEAR)))
 	end.
