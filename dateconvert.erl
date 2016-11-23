@@ -13,8 +13,8 @@
 new_date(suma, Date, DaysToAdd) ->
 	calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) + DaysToAdd);
 new_date(resta, Date, DaysToAdd) ->
-	calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) - DaysToAdd).
-
+	calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) - DaysToAdd);
+new_date(_, Date, _) ->Date.
 
 new_date_dmy({D, M, Y}) ->
 	fun(Oper, Date) ->
