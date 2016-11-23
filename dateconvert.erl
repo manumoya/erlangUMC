@@ -1,25 +1,17 @@
--module(dateconvert). 
--export([newDate/3]).
--export([newDateDMY/3]).
--import(log,[prompt/1]).
+-module(dateconvert).
+-export([new_date/3, new_date_dmy/1]).
 
-dayxAno() -> 365.242189.
-dayxMes() -> dayxAno()/12.
+-define(DAY_X_YEAR, 365.242189).
+-define(DAY_X_MONTH, 12).
 
-newDate(Date, Days_add, Oper) -> 
-	log:prompt(Days_add),
-	%log:prompt(dayxMes()),
-	calendar:gregorian_days_to_date(
-		case Oper of 
-			suma  -> calendar:date_to_gregorian_days(Date) + Days_add;
-			resta -> calendar:date_to_gregorian_days(Date) - Days_add;
-			_ 	  -> calendar:date_to_gregorian_days(Date) 
-		end
-	).
 
-newDateDMY(Date, DMY_add, Oper) -> 
-	{D,M,Y}=DMY_add,
-	TOTAL = D + M*dayxMes() + Y*dayxAno(),
-	TOTAL_INT= round(TOTAL),
-	log:prompt("total", TOTAL_INT),
-	newDate(Date, TOTAL_INT, Oper).
+new_date(suma, Date, DaysToAdd) ->
+	calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) + DaysToAdd);
+new_date(resta, Date, DaysToAdd) ->
+	calendar:gregorian_days_to_date(calendar:date_to_gregorian_days(Date) - DaysToAdd).
+
+
+new_date_dmy({D, M, Y}) ->
+	fun(Oper, Date) ->
+		new_date(Oper, Date, round(D + (M * ?DAY_X_MONTH) + (Y * ?DAY_X_YEAR)))
+	end.
