@@ -3,6 +3,9 @@
 -export([any/0]).
 -export([all/0]).
 -export([foreach/0]).
+-export([fold/0]).
+-export([mapfold/0]).
+-export([filter/0]).
 
 
 -define(L, [1,2,3,4]). 
@@ -30,3 +33,20 @@ all() ->
 
 foreach() ->
 	lists:foreach(fun(X) -> io:format("~p~n", [X]) end, ?L).
+
+fold() ->
+	F = fun(X, Factorial) -> Factorial + X end, 
+	lists:foldr(F, 1, ?L).
+
+mapfold() ->
+	F = fun(X, Factorial) -> {X*2, Factorial*X} end, 
+	lists:mapfoldl(F, 1, ?L).
+
+filter() ->
+	F = fun(X) -> 
+			if X > 1 -> true; 
+				true -> false	 
+			end 
+		end,
+	lists:filter(F, ?L).
+
